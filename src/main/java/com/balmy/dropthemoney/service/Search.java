@@ -61,11 +61,11 @@ public class Search {
         return responseService.getSingleResult(dropInfoDTO);
     }
 
-    private long calReceivedMoney(DropMoney dropMoney) {
+    public long calReceivedMoney(DropMoney dropMoney) {
         return receiveInfoService.findByDropMoneyAndReceiveUserIsNotNull(dropMoney).stream().mapToLong(ReceiveInfo::getMoney).sum();
     }
 
-    private List<ReceiveInfoDTO> makeReceiveInfoDTOs(DropMoney dropMoney) {
+    public List<ReceiveInfoDTO> makeReceiveInfoDTOs(DropMoney dropMoney) {
         List<ReceiveInfoDTO> receiveInfoDTOs = new ArrayList<>();
 
         receiveInfoService.findByDropMoneyAndReceiveUserIsNotNull(dropMoney).stream().forEach(receiveInfo -> {
@@ -77,7 +77,7 @@ public class Search {
         return receiveInfoDTOs;
     }
 
-    private boolean isExpiredToken(LocalDateTime dateTime) {
+    public boolean isExpiredToken(LocalDateTime dateTime) {
         if (Duration.between(dateTime, LocalDateTime.now()).getSeconds() > SEVEN_DAYS) {
             return true;
         } else {

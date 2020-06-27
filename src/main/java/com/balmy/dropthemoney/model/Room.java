@@ -15,10 +15,6 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @CreationTimestamp
     @Column(name = "create_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

@@ -6,7 +6,6 @@ import com.balmy.dropthemoney.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +29,6 @@ public class Drop {
     @Autowired
     private RoomService roomService;
 
-    @Transactional
     public String drop(long amount, long people, long userId, String roomId) {
         DropMoney dropMoney = makeReceiveInfos(amount, people);
         dropMoney.setDropUser(userService.findById(userId));
@@ -47,13 +45,13 @@ public class Drop {
         return token;
     }
 
-    private void withdrawMoney(long userId, long amount) {
+    public void withdrawMoney(long userId, long amount) {
         User user = userService.findById(userId);
         user.setBalance(userService.findById(userId).getBalance() - amount);
         userService.save(user);
     }
 
-    private boolean isCanUseToken(String token) {
+    public boolean isCanUseToken(String token) {
         if (dropMoneyService.findByToken(token).size() == 0) {
             return true;
         } else {
@@ -61,7 +59,7 @@ public class Drop {
         }
     }
 
-    private DropMoney makeReceiveInfos(long amount, long people) {
+    public DropMoney makeReceiveInfos(long amount, long people) {
         DropMoney dropMoney = new DropMoney();
         dropMoney.setTotalMoney(amount);
         List<ReceiveInfo> receiveInfos = distributeAmount(amount, people);
@@ -71,7 +69,7 @@ public class Drop {
         return dropMoney;
     }
 
-    private List<ReceiveInfo> distributeAmount(long amount, long people) {
+    public List<ReceiveInfo> distributeAmount(long amount, long people) {
         List<ReceiveInfo> receiveInfos = new ArrayList<>();
         long tempAmount = amount;
 

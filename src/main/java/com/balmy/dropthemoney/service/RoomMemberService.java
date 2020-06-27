@@ -1,6 +1,7 @@
 package com.balmy.dropthemoney.service;
 
 import com.balmy.dropthemoney.model.Room;
+import com.balmy.dropthemoney.model.RoomMember;
 import com.balmy.dropthemoney.model.User;
 import com.balmy.dropthemoney.repository.RoomMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class RoomMemberService {
         } else {
             return true;
         }
+    }
+
+    public RoomMember save(RoomMember roomMember) {
+        return roomMemberRepository.save(roomMember);
     }
 }

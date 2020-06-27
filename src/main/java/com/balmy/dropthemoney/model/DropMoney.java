@@ -1,6 +1,5 @@
 package com.balmy.dropthemoney.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
 @Getter
 @Setter
 public class DropMoney {

@@ -3,12 +3,14 @@ package com.balmy.dropthemoney.service;
 import com.balmy.dropthemoney.model.DropMoney;
 import com.balmy.dropthemoney.model.User;
 import com.balmy.dropthemoney.repository.DropMoneyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class DropMoneyService {
 
     @Autowired

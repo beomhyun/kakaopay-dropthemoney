@@ -4,6 +4,7 @@ import com.balmy.dropthemoney.common.response.dto.SingleResult;
 import com.balmy.dropthemoney.common.response.service.ResponseService;
 import com.balmy.dropthemoney.model.dto.DropInfoDTO;
 import com.balmy.dropthemoney.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 
 
 @RestController
+@Slf4j
 public class DropMoneyController {
     static final String USER_ID_HEADER = "X-USER-ID";
     static final String ROOM_ID_HEADER = "X-ROOM-ID";
@@ -49,7 +51,6 @@ public class DropMoneyController {
     public SingleResult<DropInfoDTO> search(@RequestBody HashMap<String, String> requestBody, @RequestHeader HttpHeaders headers) throws Exception {
         long userId = Long.parseLong(headers.get(USER_ID_HEADER).get(0));
         String token = requestBody.get("token");
-
         return search.search(userId, token);
     }
 

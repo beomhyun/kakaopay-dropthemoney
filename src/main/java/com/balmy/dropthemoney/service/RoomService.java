@@ -17,11 +17,7 @@ public class RoomService {
     public Room findById(String id) {
         return roomRepository.getOne(id);
     }
-
-    public Room add(long userId) {
-        Room room = new Room();
-        room.setUser(userService.findById(userId));
-
+    public Room save(Room room) {
         return roomRepository.save(room);
     }
 }
