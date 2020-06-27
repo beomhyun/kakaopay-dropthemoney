@@ -37,9 +37,12 @@ public class Search {
 
     public SingleResult<DropInfoDTO> search(long userId, String token) {
         User user = userService.findById(userId);
+
         if (dropMoneyService.findByToken(token).size() == 0) {
+            //유효하지 않은 토큰 실패 응답
             return responseService.getSingleFailResult(INVALID_TOKEN);
         } else if (!dropMoneyService.isDropUser(token, user)) {
+            //자신이 뿌리지 않은 건에 대한 조회 실패 응답
             return responseService.getSingleFailResult(IS_NOT_DROP_USER);
         }
 
@@ -47,15 +50,18 @@ public class Search {
         DropMoney dropMoney = dropMoneyService.findByToken(token).get(0);
 
         if (isExpiredToken(dropMoney.getCreatedAt())) {
+            //조회가능 기간이 지난 뿌리기 건에 대한 실패 응답
             return responseService.getSingleFailResult(EXPIRED_TOKEN);
         }
+
+        //뿌리기 시각
         dropInfoDTO.setDropTime(dropMoney.getCreatedAt());
+        //뿌린 금액
         dropInfoDTO.setDropMoney(dropMoney.getTotalMoney());
-
+        //받기 완료된 금액
         dropInfoDTO.setReceivedMoney(calReceivedMoney(dropMoney));
-
+        //받기 완료된 정보
         List<ReceiveInfoDTO> receiveInfoDTOS = makeReceiveInfoDTOs(dropMoney);
-
         dropInfoDTO.setReceiveInfoDTOs(receiveInfoDTOS);
 
         return responseService.getSingleResult(dropInfoDTO);
